@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Windows.Input;
 using CarsRental.Core.ViewModels;
 using CarsRental.Crosscutting;

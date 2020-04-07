@@ -8,12 +8,16 @@ using Prism.Regions;
 
 namespace CarsRental
 {
+    /// <summary>
+    /// Prism's module related to renting cars and so on.
+    /// </summary>
     public class CarsModule : IModule
     {
         public CarsModule()
         {
         }
 
+        /// <inheritdoc cref="IModule.OnInitialized(IContainerProvider)">
         public void OnInitialized(IContainerProvider containerProvider)
         {
             var regionManger = containerProvider.Resolve<IRegionManager>();
@@ -21,6 +25,7 @@ namespace CarsRental
             regionManger.RegisterViewWithRegion(RegionNames.MainContent, typeof(CarDetailUserControl));
         }
 
+        /// <inheritdoc cref="IModule.RegisterTypes(IContainerRegistry)">
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             ViewModelLocationProvider.Register<CarsUserControl, CarsViewModel>();
