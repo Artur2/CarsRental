@@ -1,10 +1,7 @@
-﻿using System.Windows;
-using CarsRental.Infrastructure.Storage.Ef;
-using Microsoft.Extensions.DependencyInjection;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Unity;
-using Serilog;
+using System.Windows;
 
 namespace CarsRental
 {
@@ -16,24 +13,16 @@ namespace CarsRental
         protected override Window CreateShell() =>
             Container.Resolve<MainWindow>();
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            ConfigureServices();
-        }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry) => ConfigureServices();
 
-        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
-        {
-            moduleCatalog.AddModule<CarsModule>();
-        }
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) => moduleCatalog.AddModule<CarsModule>();
 
         public void ConfigureServices()
         {
             PrismContainerExtension.Create(Container.GetContainer());
             PrismContainerExtension.Current.RegisterServices(serviceCollection =>
             {
-                serviceCollection.AddEntityFrameworkSqlite();
-                serviceCollection.AddDbContext<CarsRentalDbContext>();
-                serviceCollection.AddLogging();
+                serviceCollection.ConfigureServices();
             });
         }
     }

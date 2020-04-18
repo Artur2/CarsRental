@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Serilog;
 
 namespace CarsRental
 {
@@ -8,9 +7,6 @@ namespace CarsRental
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
     }
 }

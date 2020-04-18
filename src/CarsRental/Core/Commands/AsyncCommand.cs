@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CarsRental.Crosscutting.Utilities;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CarsRental.Crosscutting.Utilities;
 
 namespace CarsRental.Core.Commands
 {
@@ -24,10 +24,7 @@ namespace CarsRental.Core.Commands
 
         public bool CanExecute(object parameter) => CanExecute();
 
-        void ICommand.Execute(object parameter)
-        {
-            ExecuteAsync(default).FireAndForgetSafeAsync();
-        }
+        void ICommand.Execute(object parameter) => ExecuteAsync(default).FireAndForgetSafeAsync();
 
         public async Task ExecuteAsync(CancellationToken cancellationToken)
         {

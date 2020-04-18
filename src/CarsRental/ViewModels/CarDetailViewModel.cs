@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
-using System.Windows.Input;
-using CarsRental.Core.ViewModels;
+﻿using CarsRental.Core.ViewModels;
 using CarsRental.Crosscutting;
 using CarsRental.Views;
+using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Regions;
+using System.Windows.Input;
 
 namespace CarsRental.ViewModels
 {
@@ -14,26 +14,31 @@ namespace CarsRental.ViewModels
     public class CarDetailViewModel : ViewModel
     {
         private readonly IRegionManager _regionManager;
+        private readonly ILogger<CarDetailViewModel> _logger;
 
-        public CarDetailViewModel(IRegionManager regionManager)
+        public CarDetailViewModel(IRegionManager regionManager, ILogger<CarDetailViewModel> logger)
         {
             NavigateBackCommand = new DelegateCommand(() => NavigateToList());
             _regionManager = regionManager;
+            _logger = logger;
         }
 
         public string Title { get; set; } = "Test detail view model";
 
         public ICommand NavigateBackCommand { get; set; }
 
-        public override void OnNavigatedTo(NavigationContext navigationContext)
+        public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var carDetailId = navigationContext.Parameters.GetValue<string>("id");
-            Debug.WriteLine(carDetailId);
+            var carDetailIdRaw = navigationContext.Parameters.GetValue<string>("id");
+
+            if (int.TryParse(carDetailIdRaw, out var carDetailId))
+            {
+                // TODO: Retrive
+            }
+
+            _logger.LogInformation(carDetailIdRaw);
         }
 
-        private void NavigateToList()
-        {
-            _regionManager.RequestNavigate(RegionNames.MainContent, nameof(CarsUserControl));
-        }
+        private void NavigateToList() => _regionManager.RequestNavigate(RegionNames.MainContent, nameof(CarsUserControl));
     }
 }

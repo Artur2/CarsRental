@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
-using CarsRental.Core.Commands;
+﻿using CarsRental.Core.Commands;
 using CarsRental.Core.ViewModels;
 using CarsRental.Crosscutting;
 using CarsRental.Views;
 using Microsoft.Extensions.Logging;
 using Prism.Regions;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CarsRental.ViewModels
 {

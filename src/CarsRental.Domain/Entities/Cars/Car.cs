@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CarsRental.Domain.Seedwork;
 using System.ComponentModel.DataAnnotations;
-using CarsRental.Domain.Seedwork;
 
 namespace CarsRental.Domain.Entities.Cars
 {
@@ -26,9 +25,22 @@ namespace CarsRental.Domain.Entities.Cars
         [Required]
         public float Price { get; set; }
 
+        [Required]
+        public string CarType { get; set; }
+
         /// <summary>
-        /// Car related attributes.
+        /// Stereo inside of car.
         /// </summary>
-        public virtual IList<CarAttribute> CarAttributes { get; set; }
+        public CarStereo Stereo { get; set; }
+
+        /// <summary>
+        /// Conditioner inside of car.
+        /// </summary>
+        public CarAirConditioner Conditioner { get; set; }
+
+        /// <summary>
+        /// Engine of car.
+        /// </summary>
+        public CarEngine Engine { get; set; }
     }
 }

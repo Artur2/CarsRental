@@ -6,13 +6,18 @@ namespace CarsRental.Domain.Seedwork
     /// <summary>
     /// Contract related to execute operations against storage.
     /// </summary>
-    public interface IRepository<T> where T: Entity
+    public interface IRepository<T> where T : class
     {
         /// <summary>
         /// Instance of <see cref="IUnitOfWork"/> for modify state of requested objects 
         /// from underlying storage.
         /// </summary>
         IUnitOfWork UnitOfWork { get; }
+
+        /// <summary>
+        /// Getting entity by id.
+        /// </summary>
+        Task<T> GetByAsync(int id);
 
         /// <summary>
         /// Retrieve all data from underlying storage.

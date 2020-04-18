@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -10,7 +9,7 @@ namespace CarsRental.Domain.Seedwork
     /// <summary>
     /// Contract for operation with <see cref="IQueryable{T}"/>.
     /// </summary>
-    public interface IQueryableRepository<T> : IRepository<T> where T: Entity
+    public interface IQueryableRepository<T> : IRepository<T> where T : class
     {
         /// <summary>
         /// Query async results by filtering provided expression.

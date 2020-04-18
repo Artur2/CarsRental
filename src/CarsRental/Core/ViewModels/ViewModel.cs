@@ -1,6 +1,6 @@
-﻿using System;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Regions;
+using System;
 
 namespace CarsRental.Core.ViewModels
 {
@@ -10,7 +10,7 @@ namespace CarsRental.Core.ViewModels
     public class ViewModel : BindableBase, IConfirmNavigationRequest
     {
         /// <inheritdoc cref="IConfirmNavigationRequest.ConfirmNavigationRequest(NavigationContext, Action{bool})">
-        public virtual void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback) => 
+        public virtual void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback) =>
             continuationCallback(true);
 
         /// <inheritdoc cref="INavigationAware.IsNavigationTarget(NavigationContext)">
