@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CarsRental.Domain.Seedwork;
 using CarsRental.Domain.Seedwork.Model;
 
 namespace CarsRental.Domain.Cars.Entities

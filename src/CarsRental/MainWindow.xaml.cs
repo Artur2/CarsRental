@@ -18,9 +18,6 @@ namespace CarsRental
             Initialized += async (s, e) => await BootstrappAsync();
         }
 
-        public async Task BootstrappAsync()
-        {
-            await _dataBootsrapper.BootstrapAsync(default);
-        }
+        public async Task BootstrappAsync() => await _dataBootsrapper.BootstrapAsync(default);
     }
 }

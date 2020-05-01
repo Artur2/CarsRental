@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRental.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRental.Crosscutting", "CarsRental.Crosscutting\CarsRental.Crosscutting.csproj", "{28489872-B07E-42CA-8790-E65F1724F4A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsRental.Infrastructure.Tests", "CarsRental.Infrastructure.Tests\CarsRental.Infrastructure.Tests.csproj", "{8E647500-0876-4796-AE3C-6C946C65ED83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{28489872-B07E-42CA-8790-E65F1724F4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28489872-B07E-42CA-8790-E65F1724F4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28489872-B07E-42CA-8790-E65F1724F4A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E647500-0876-4796-AE3C-6C946C65ED83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E647500-0876-4796-AE3C-6C946C65ED83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E647500-0876-4796-AE3C-6C946C65ED83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E647500-0876-4796-AE3C-6C946C65ED83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
