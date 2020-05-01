@@ -1,8 +1,9 @@
-﻿using CarsRental.Crosscutting.Utilities;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CarsRental.Crosscutting.Utilities;
+using Microsoft.Extensions.Logging;
 
 namespace CarsRental.Core.Commands
 {
@@ -13,11 +14,13 @@ namespace CarsRental.Core.Commands
         private bool _isExecuting;
         private readonly Func<Task> _execute;
         private readonly Func<bool> _canExecute;
+        private readonly ILogger<AsyncCommand> _logger;
 
-        public AsyncCommand(Func<Task> execute, Func<bool> canExecute = null)
+        public AsyncCommand(Func<Task> execute, Func<bool> canExecute = null, ILogger<AsyncCommand> logger = null)
         {
             _execute = execute;
             _canExecute = canExecute;
+            _logger = logger;
         }
 
         public bool CanExecute() => !_isExecuting && (_canExecute?.Invoke() ?? true);
@@ -34,6 +37,10 @@ namespace CarsRental.Core.Commands
                 {
                     _isExecuting = true;
                     await _execute();
+                }
+                catch (Exception ex)
+                {
+                    _logger?.LogError(ex, "Cannot execute command");
                 }
                 finally
                 {

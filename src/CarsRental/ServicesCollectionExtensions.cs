@@ -1,8 +1,12 @@
-﻿using CarsRental.Domain.Seedwork;
+﻿using CarsRental.Domain.Cars.Entities;
+using CarsRental.Domain.Cars.Seeds;
+using CarsRental.Domain.Seedwork.Data;
+using CarsRental.Domain.Seedwork.Query;
 using CarsRental.Infrastructure.Storage.Ef;
 using CarsRental.Infrastructure.Storage.Seed;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Serilog.Events;
 
 namespace CarsRental
 {
@@ -14,13 +18,17 @@ namespace CarsRental
             serviceCollection.AddDbContext<CarsRentalDbContext>();
             serviceCollection.AddLogging(logger =>
             {
-                var serilogLogger = new LoggerConfiguration().WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
+                var serilogLogger = new LoggerConfiguration()
+                    .WriteTo.Console(LogEventLevel.Debug)
+                    .WriteTo.Debug(LogEventLevel.Debug)
                     .CreateLogger();
                 logger.AddSerilog(serilogLogger);
             });
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             serviceCollection.AddScoped<IUnitOfWork, CarsRentalDbContext>();
             serviceCollection.AddScoped<ISeedDataService, SeedDataService>();
+            serviceCollection.AddScoped<ISeedData<Car>, CarSeedData>();
+            serviceCollection.AddScoped<IDataBootstrapper, DataBootstrapper>();
 
             return serviceCollection;
         }

@@ -1,8 +1,9 @@
-﻿using CarsRental.Domain.Seedwork;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using CarsRental.Domain.Seedwork.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 
 namespace CarsRental.Infrastructure.Storage.Seed
 {
@@ -27,7 +28,7 @@ namespace CarsRental.Infrastructure.Storage.Seed
             if (seedData == null)
             {
                 _logger.LogError($"Not found seed data for {typeof(T).Name}");
-                throw new InvalidOperationException($"Not found seed data for {typeof(T).Name}");
+                return Enumerable.Empty<T>();
             }
 
             return seedData.GetData();

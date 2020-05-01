@@ -1,9 +1,10 @@
-﻿using CarsRental.Domain.Entities.Cars;
-using CarsRental.Domain.Seedwork;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CarsRental.Domain.Cars.Entities;
+using CarsRental.Domain.Seedwork.Query;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CarsRental.Infrastructure.Storage.Ef
 {
@@ -12,14 +13,21 @@ namespace CarsRental.Infrastructure.Storage.Ef
     /// </summary>
     public class CarsRentalDbContext : DbContext, IUnitOfWork
     {
-        private readonly ISeedDataService _seedDataService;
+        private readonly ILogger<CarsRentalDbContext> _logger;
 
-        public CarsRentalDbContext(ISeedDataService seedDataService) => _seedDataService = seedDataService;
+        public CarsRentalDbContext(ILogger<CarsRentalDbContext> logger)
+        {
+            _logger = logger;
+            Database.EnsureCreated();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             dbContextOptionsBuilder.UseSqlite("Data Source=CarsRental.db;Cache=Shared");
+#if DEBUG
             dbContextOptionsBuilder.EnableDetailedErrors();
+            dbContextOptionsBuilder.EnableSensitiveDataLogging();
+#endif
         }
 
         public DbSet<Car> Cars { get; set; }
@@ -33,30 +41,28 @@ namespace CarsRental.Infrastructure.Storage.Ef
         /// <inheritdoc cref="DbContext.OnModelCreating(ModelBuilder)">
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Car>()
-                .OwnsOne(p => p.Stereo);
+            try
+            {
+                modelBuilder.Entity<Car>()
+                    .OwnsOne(p => p.Stereo);
 
-            modelBuilder.Entity<Car>()
-                .OwnsOne(p => p.Conditioner);
+                modelBuilder.Entity<Car>()
+                    .OwnsOne(p => p.Conditioner);
 
-            modelBuilder.Entity<Car>()
-                .OwnsOne(p => p.Engine)
-                .HasData(_seedDataService.GetData<Car>().ToArray());
+                modelBuilder.Entity<Car>()
+                    .OwnsOne(p => p.Engine);
 
-            modelBuilder.Entity<Vans>()
-                .HasData(_seedDataService.GetData<Vans>().ToArray());
-
-            modelBuilder.Entity<SportCar>()
-                .HasData(_seedDataService.GetData<Sedan>());
-
-            modelBuilder.Entity<Sedan>()
-                .HasData(_seedDataService.GetData<Sedan>());
-
-            modelBuilder.Entity<Car>()
-                .HasDiscriminator(x => x.CarType)
-                .HasValue<Vans>(Constants.CarTypeVans)
-                .HasValue<SportCar>(Constants.CarTypeSport)
-                .HasValue<Sedan>(Constants.CarTypeSedan);
+                modelBuilder.Entity<Car>()
+                    .HasDiscriminator(x => x.CarType)
+                    .HasValue<Vans>(Constants.CarTypeVans)
+                    .HasValue<SportCar>(Constants.CarTypeSport)
+                    .HasValue<Sedan>(Constants.CarTypeSedan);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create conceptual model");
+                throw;
+            }
         }
 
         /// <inheritdoc cref="IUnitOfWork.CommitAsync(CancellationToken)">

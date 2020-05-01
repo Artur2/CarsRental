@@ -1,9 +1,9 @@
-﻿using CarsRental.Domain.Seedwork;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using CarsRental.Domain.Seedwork.Query;
 
 namespace CarsRental.Infrastructure.Storage.Ef
 {

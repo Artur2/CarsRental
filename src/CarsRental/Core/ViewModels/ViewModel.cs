@@ -1,6 +1,6 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using Prism.Mvvm;
 using Prism.Regions;
-using System;
 
 namespace CarsRental.Core.ViewModels
 {

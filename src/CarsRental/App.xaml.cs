@@ -1,7 +1,8 @@
-﻿using Prism.Ioc;
+﻿using System.Windows;
+using CarsRental.Cars;
+using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Unity;
-using System.Windows;
 
 namespace CarsRental
 {

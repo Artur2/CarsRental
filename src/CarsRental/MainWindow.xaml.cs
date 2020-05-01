@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using CarsRental.Domain.Seedwork.Data;
 
 namespace CarsRental
 {
@@ -7,6 +9,18 @@ namespace CarsRental
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow() => InitializeComponent();
+        private readonly IDataBootstrapper _dataBootsrapper;
+
+        public MainWindow(IDataBootstrapper dataBootsrapper)
+        {
+            InitializeComponent();
+            _dataBootsrapper = dataBootsrapper;
+            Initialized += async (s, e) => await BootstrappAsync();
+        }
+
+        public async Task BootstrappAsync()
+        {
+            await _dataBootsrapper.BootstrapAsync(default);
+        }
     }
 }
