@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CarsRental.Domain.Cars.Entities;
 using CarsRental.Domain.Seedwork.Query;
+using CarsRental.Infrastructure.Storage.Ef.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -14,21 +15,16 @@ namespace CarsRental.Infrastructure.Storage.Ef
     public class CarsRentalDbContext : DbContext, IUnitOfWork
     {
         private readonly ILogger<CarsRentalDbContext> _logger;
+        private readonly IDbContextConfiguration _contextConfiguration;
 
-        public CarsRentalDbContext(ILogger<CarsRentalDbContext> logger)
+        public CarsRentalDbContext(ILogger<CarsRentalDbContext> logger, IDbContextConfiguration contextConfiguration)
         {
             _logger = logger;
+            _contextConfiguration = contextConfiguration;
             Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
-        {
-            dbContextOptionsBuilder.UseSqlite("Data Source=CarsRental.db;Cache=Shared");
-#if DEBUG
-            dbContextOptionsBuilder.EnableDetailedErrors();
-            dbContextOptionsBuilder.EnableSensitiveDataLogging();
-#endif
-        }
+        protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder) => _contextConfiguration.OnConfiguring(dbContextOptionsBuilder);
 
         public DbSet<Car> Cars { get; set; }
 
