@@ -15,5 +15,5 @@ jobs:
         dotnet-version: 3.1.100
     - name: Build specific projects on Linux with dotnet
       run: dotnet build ./src/CarsRental.Crosscutting/CarsRental.Crosscutting.csproj --configuration Release && dotnet build ./src/CarsRental.Domain/CarsRental.Domain.csproj --configuration Release && dotnet build ./src/CarsRental.Infrastructure/CarsRental.Infrastructure.csproj  --configuration Release && dotnet build ./src/CarsRental.Infrastructure.Tests/CarsRental.Infrastructure.Tests.csproj --configuration Release
-    - name: Tests
-      run: dotnet test **/*.Tests.csproj
+    - name: Infrastructure Tests
+      run: dotnet test .\src\CarsRental.Infrastructure.Tests\CarsRental.Infrastructure.Tests.csproj
