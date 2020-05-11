@@ -19,6 +19,7 @@ namespace CarsRental.Domain.Cars.Entities
         /// </summary>
         public bool IsRented { get; set; }
 
+        // TODO: Need to change to value object
         /// <summary>
         /// Price of car for rent.
         /// </summary>
@@ -26,7 +27,7 @@ namespace CarsRental.Domain.Cars.Entities
         public float Price { get; set; }
 
         [Required]
-        public string CarType { get; set; }
+        public virtual string CarType { get; protected set; }
 
         /// <summary>
         /// Stereo inside of car.

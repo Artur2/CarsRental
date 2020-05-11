@@ -13,13 +13,10 @@ namespace CarsRental.Infrastructure.Tests.Storage.Seed
     {
         private readonly ServiceCollectionFixture _serviceCollectionFixture;
 
-        public DataBootsrapperTests(ServiceCollectionFixture serviceCollectionFixture)
-        {
-            _serviceCollectionFixture = serviceCollectionFixture;
-        }
+        public DataBootsrapperTests(ServiceCollectionFixture serviceCollectionFixture) => _serviceCollectionFixture = serviceCollectionFixture;
 
         // For test infrastructure.
-        [Fact]
+        [Fact(Skip = "Only for check")]
         public async Task DataBoostrapper_With_Specified_Ids_In_Entities_Should_Not_Have_Doublings()
         {
             using var serviceScope = _serviceCollectionFixture.CreateDefaultScopedProvider();

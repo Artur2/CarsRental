@@ -5,5 +5,6 @@
     /// </summary>
     public class SportCar : Car
     {
+        public override string CarType { get; protected set; } = Constants.CarTypeSport;
     }
 }

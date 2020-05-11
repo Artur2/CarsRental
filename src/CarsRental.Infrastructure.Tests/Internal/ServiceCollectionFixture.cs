@@ -45,9 +45,6 @@ namespace CarsRental.Infrastructure.Tests.Internal
             return BuildServiceProvider(serviceCollection);
         }
 
-        public virtual IServiceScope CreateDefaultScopedProvider()
-        {
-            return BuildWithDefaultServices().CreateScope();
-        }
+        public virtual IServiceScope CreateDefaultScopedProvider() => BuildWithDefaultServices().CreateScope();
     }
 }
