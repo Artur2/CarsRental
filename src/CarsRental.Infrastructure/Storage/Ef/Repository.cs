@@ -42,7 +42,7 @@ namespace CarsRental.Infrastructure.Storage.Ef
         /// <inheritdoc cref="IRepository{T}.GetByAsync(int)">
         public async Task<T> GetByAsync(int id) => await Context.FindAsync<T>(id);
 
-        async Task<T> IKeyedRepository<T>.InsertWithKeyAsync<K>(Expression<Func<T, K>> key, T instance, CancellationToken cancellationToken = default)
+        async Task<T> IKeyedRepository<T>.InsertWithKeyAsync<K>(Expression<Func<T, K>> key, T instance, CancellationToken cancellationToken)
         {
             var memberAccess = key.Body as MemberExpression;
             if (memberAccess == null)
