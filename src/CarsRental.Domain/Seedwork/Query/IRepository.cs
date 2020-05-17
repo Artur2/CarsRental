@@ -22,7 +22,7 @@ namespace CarsRental.Domain.Seedwork.Query
         /// <summary>
         /// Retrieve all data from underlying storage.
         /// </summary>
-        Task<T[]> GetAllAsync(CancellationToken cancellationToken);
+        Task<T[]> GetAllAsync(CancellationToken cancellationToken = default);
 
 
         /// <summary>
@@ -30,13 +30,13 @@ namespace CarsRental.Domain.Seedwork.Query
         /// </summary>
         /// <param name="entity">Persisting instance.</param>
         /// <param name="cancellationToken">Used to stop all underlying pending operations.</param>
-        Task<T> AddAsync(T entity, CancellationToken cancellationToken);
+        Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deleting provided entity from underlying storage.
         /// </summary>
         /// <param name="entity">Persisted instance which will be deleted..</param>
         /// <param name="cancellationToken">Used to stop all underlying pending operations.</param>
-        Task DeleteAsync(T entity, CancellationToken cancellationToken);
+        Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
     }
 }

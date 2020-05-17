@@ -16,6 +16,6 @@ namespace CarsRental.Domain.Seedwork.Query
         /// </summary>
         /// <param name="expression">Expression by provided.</param>
         /// <returns>Queryable request which holds reference on underlying expression executor.</returns>
-        Task<IQueryable<T>> QueryAsync(Expression<Func<T, bool>> queryExpression, CancellationToken cancellationToken);
+        Task<IQueryable<T>> QueryAsync(Expression<Func<T, bool>> queryExpression, CancellationToken cancellationToken = default);
     }
 }

@@ -11,7 +11,7 @@ namespace CarsRental.Infrastructure.Storage.Ef
     /// Common repository implementation for EFCore.
     /// </summary>
     /// <typeparam name="T">Instance in database.</typeparam>
-    public class Repository<T> : IRepository<T>, IQueryableRepository<T> where T : class
+    public class Repository<T> : IRepository<T>, IQueryableRepository<T>, IKeyedRepository<T> where T : class
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -41,6 +41,35 @@ namespace CarsRental.Infrastructure.Storage.Ef
 
         /// <inheritdoc cref="IRepository{T}.GetByAsync(int)">
         public async Task<T> GetByAsync(int id) => await Context.FindAsync<T>(id);
+
+        async Task<T> IKeyedRepository<T>.InsertWithKeyAsync<K>(Expression<Func<T, K>> key, T instance, CancellationToken cancellationToken = default)
+        {
+            var memberAccess = key.Body as MemberExpression;
+            if (memberAccess == null)
+            {
+                throw new InvalidOperationException("Body is not MemberAccess Expression");
+            }
+
+
+            var instanceParamenter = Expression.Constant(instance, typeof(T)); // value(instance)
+            var instanceMemberAccess = Expression.MakeMemberAccess(instanceParamenter, memberAccess.Member); // value.Member
+            var queryParameter = Expression.Parameter(typeof(T), "x"); // x
+            var queryMemberAccess = Expression.MakeMemberAccess(queryParameter, memberAccess.Member); // x.Member
+
+            var equalExpression = Expression.Equal(queryMemberAccess, instanceMemberAccess); // x.Member == value.Member
+
+            var queryExpression = Expression.Lambda<Func<T, bool>>(equalExpression, queryParameter); // x => x.Member == value.Member
+
+            var queryResult = await QueryAsync(queryExpression, cancellationToken);
+            if (queryResult.Any())
+            {
+                return queryResult.FirstOrDefault();
+            }
+
+            var insertionResult = await AddAsync(instance, cancellationToken);
+
+            return insertionResult;
+        }
 
         /// <inheritdoc cref="IQueryableRepository{T}.QueryAsync(Expression{Func{T, bool}}, CancellationToken)"/>
         public Task<IQueryable<T>> QueryAsync(Expression<Func<T, bool>> queryExpression, CancellationToken cancellationToken)

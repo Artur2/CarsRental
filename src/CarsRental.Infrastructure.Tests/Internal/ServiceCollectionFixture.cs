@@ -36,9 +36,14 @@ namespace CarsRental.Infrastructure.Tests.Internal
             serviceCollection.AddDbContext<CarsRentalDbContext>();
             serviceCollection.AddLogging();
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            serviceCollection.AddScoped(typeof(IQueryableRepository<>), typeof(Repository<>));
+            serviceCollection.AddScoped(typeof(IKeyedRepository<>), typeof(Repository<>));
             serviceCollection.AddScoped<IUnitOfWork, CarsRentalDbContext>();
             serviceCollection.AddScoped<ISeedDataService, SeedDataService>();
             serviceCollection.AddScoped<ISeedData<Car>, CarSeedData>();
+            serviceCollection.AddScoped<ISeedData<Vans>, VansSeedData>();
+            serviceCollection.AddScoped<ISeedData<SportCar>, SportCarSeedData>();
+            serviceCollection.AddScoped<ISeedData<Sedan>, SedanSeedData>();
             serviceCollection.AddScoped<IDataBootstrapper, DataBootstrapper>();
             serviceCollection.AddScoped<IDbContextConfiguration, TestDatabaseConfiguration>();
 

@@ -10,6 +10,7 @@ namespace CarsRental.Domain.Cars.Seeds
         {
             yield return new Sedan
             {
+                Id = 2,
                 Price = 3000,
                 Title = "Honda Accord",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Honda's Conditioner" },
@@ -20,6 +21,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 3,
                 Price = 2100,
                 Title = "Opel Astra",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Opels's Conditioner" },
@@ -30,6 +32,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 4,
                 Price = 2000,
                 Title = "Ford Mondeo IV",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Fords's Conditioner" },
@@ -40,6 +43,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 5,
                 Price = 2500,
                 Title = "Honda Civic",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Hondas's Conditioner" },
@@ -50,6 +54,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 6,
                 Price = 1900,
                 Title = "Volvo S40",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Hondas's Conditioner" },
@@ -60,6 +65,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 7,
                 Price = 2100,
                 Title = "Volvo S40",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Hondas's Conditioner" },
@@ -70,6 +76,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 8,
                 Price = 2700,
                 Title = "Mitsubishi Lancer",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Mitsubishi's Conditioner" },
@@ -80,6 +87,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 9,
                 Price = 1900,
                 Title = "Mitsubishi Lancer",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Mitsubishi's Conditioner" },
@@ -90,6 +98,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 10,
                 Price = 1900,
                 Title = "Honda Civic",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Honda's Conditioner" },
@@ -100,6 +109,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 11,
                 Price = 2450,
                 Title = "Honda Legend",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Honda's Conditioner" },
@@ -110,6 +120,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 12,
                 Price = 2100,
                 Title = "Honda Legend",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Honda's Conditioner" },
@@ -120,6 +131,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Sedan
             {
+                Id = 13,
                 Price = 2850,
                 Title = "Infiniti M III",
                 Conditioner = new CarAirConditioner { IsWorkingWell = true, Title = "Infinity's Conditioner" },

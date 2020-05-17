@@ -11,11 +11,11 @@ namespace CarsRental.Domain.Seedwork.Query
         /// <summary>
         /// Committing changes to underlying storage
         /// </summary>
-        Task CommitAsync(CancellationToken cancellationToken);
+        Task CommitAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Rollback changes to initali state of underlying storage
         /// </summary>
-        Task RollbackAsync(CancellationToken cancellationToken);
+        Task RollbackAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -8,6 +8,6 @@ namespace CarsRental.Domain.Seedwork.Data
     /// </summary>
     public interface IDataBootstrapper
     {
-        Task BootstrapAsync(CancellationToken cancellationToken);
+        Task BootstrapAsync(CancellationToken cancellationToken = default);
     }
 }

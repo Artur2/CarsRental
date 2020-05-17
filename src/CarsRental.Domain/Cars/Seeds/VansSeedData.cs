@@ -13,6 +13,7 @@ namespace CarsRental.Domain.Cars.Seeds
         {
             yield return new Vans
             {
+                Id = 27,
                 Title = "Chevrolet Express 2500",
                 Price = 3000,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },
@@ -22,6 +23,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Vans
             {
+                Id = 28,
                 Title = "Chrysler Pacifica",
                 Price = 1500,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },
@@ -31,6 +33,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Vans
             {
+                Id = 29,
                 Title = "Honda Odyssey",
                 Price = 1600,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },
@@ -40,6 +43,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Vans
             {
+                Id = 30,
                 Title = "Mercedes-Benz Metris",
                 Price = 1800,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },
@@ -49,6 +53,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Vans
             {
+                Id = 31,
                 Title = "Ford Transit Connect",
                 Price = 3100,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },
@@ -59,6 +64,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Vans
             {
+                Id = 32,
                 Title = "Ford Transit",
                 Price = 2800,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },
@@ -69,6 +75,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Vans
             {
+                Id = 33,
                 Title = "Mercedes-Benz Sprinter",
                 Price = 3000,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },
@@ -78,6 +85,7 @@ namespace CarsRental.Domain.Cars.Seeds
 
             yield return new Vans
             {
+                Id = 34,
                 Title = "Toyota Sienna",
                 Price = 2250,
                 Conditioner = new CarAirConditioner { Title = "Stock", IsWorkingWell = true },

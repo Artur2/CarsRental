@@ -11,6 +11,8 @@ namespace CarsRental
     /// </summary>
     public partial class App : PrismApplication
     {
+        protected override void OnInitialized() => base.OnInitialized();// TODO: Initialization
+
         protected override Window CreateShell() =>
             Container.Resolve<MainWindow>();
 

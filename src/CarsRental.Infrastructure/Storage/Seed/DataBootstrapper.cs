@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CarsRental.Domain.Cars.Entities;
 using CarsRental.Domain.Seedwork.Data;
 using CarsRental.Domain.Seedwork.Query;
+using Microsoft.Extensions.Logging;
 
 namespace CarsRental.Infrastructure.Storage.Seed
 {
@@ -11,55 +12,60 @@ namespace CarsRental.Infrastructure.Storage.Seed
     /// </summary>
     public class DataBootstrapper : IDataBootstrapper
     {
-        private readonly IRepository<Car> _carRepository;
-        private readonly IRepository<Sedan> _sedanRepository;
-        private readonly IRepository<SportCar> _sportCarRepository;
-        private readonly IRepository<Vans> _vansRepository;
+        private readonly IKeyedRepository<Car> _carRepository;
+        private readonly IKeyedRepository<Sedan> _sedanRepository;
+        private readonly IKeyedRepository<SportCar> _sportCarRepository;
+        private readonly IKeyedRepository<Vans> _vansRepository;
         private readonly ISeedDataService _seedDataService;
+        private readonly ILogger<DataBootstrapper> _logger;
 
-        public DataBootstrapper(IRepository<Car> carRepository,
-            IRepository<Sedan> sedanRepository,
-            IRepository<SportCar> sportCarRepository,
-            IRepository<Vans> vansRepository,
-            ISeedDataService seedDataService)
+        public DataBootstrapper(IKeyedRepository<Car> carRepository,
+            IKeyedRepository<Sedan> sedanRepository,
+            IKeyedRepository<SportCar> sportCarRepository,
+            IKeyedRepository<Vans> vansRepository,
+            ISeedDataService seedDataService,
+            ILogger<DataBootstrapper> logger)
         {
             _carRepository = carRepository;
             _sedanRepository = sedanRepository;
             _sportCarRepository = sportCarRepository;
             _vansRepository = vansRepository;
             _seedDataService = seedDataService;
+            _logger = logger;
         }
 
         /// <inheritdoc cref="IDataBootstrapper.BootstrapAsync(CancellationToken)">
         public async Task BootstrapAsync(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Start bootsrapp");
             cancellationToken.ThrowIfCancellationRequested();
             var cars = _seedDataService.GetData<Car>();
 
             foreach (var car in cars)
             {
-                await _carRepository.AddAsync(car, cancellationToken);
+                await _carRepository.InsertWithKeyAsync(x => x.Id, car, cancellationToken);
             }
 
             var sedans = _seedDataService.GetData<Sedan>();
             foreach (var sedan in sedans)
             {
-                await _sedanRepository.AddAsync(sedan, cancellationToken);
+                await _sedanRepository.InsertWithKeyAsync(x => x.Id, sedan, cancellationToken);
             }
 
             var sportCars = _seedDataService.GetData<SportCar>();
             foreach (var sportCar in sportCars)
             {
-                await _sportCarRepository.AddAsync(sportCar, cancellationToken);
+                await _sportCarRepository.InsertWithKeyAsync(x => x.Id, sportCar, cancellationToken);
             }
 
             var vans = _seedDataService.GetData<Vans>();
             foreach (var van in vans)
             {
-                await _vansRepository.AddAsync(van, cancellationToken);
+                await _vansRepository.InsertWithKeyAsync(x => x.Id, van, cancellationToken);
             }
 
-            await _carRepository.UnitOfWork.CommitAsync(cancellationToken);
+            await _vansRepository.UnitOfWork.CommitAsync(cancellationToken);
+            _logger.LogInformation("End bootsrapp");
         }
     }
 }
