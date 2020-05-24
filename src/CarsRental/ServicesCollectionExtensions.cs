@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CarsRental.Crosscutting.Logging;
 using CarsRental.Domain.Cars.Entities;
 using CarsRental.Domain.Cars.Seeds;
 using CarsRental.Domain.Seedwork.Data;
@@ -7,9 +7,6 @@ using CarsRental.Infrastructure.Storage.Ef;
 using CarsRental.Infrastructure.Storage.Ef.Configuration;
 using CarsRental.Infrastructure.Storage.Seed;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using Serilog.Events;
 
 namespace CarsRental
 {
@@ -17,24 +14,10 @@ namespace CarsRental
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection serviceCollection)
         {
+
+            serviceCollection.AddScoped(typeof(ILoggerWrapper<>), typeof(LoggerWrapper<>));
             serviceCollection.AddEntityFrameworkSqlite();
             serviceCollection.AddDbContext<CarsRentalDbContext>();
-            serviceCollection.AddLogging(loggerBuilder =>
-            {
-#if DEBUG
-                loggerBuilder.SetMinimumLevel(LogLevel.Debug);
-#else
-                logger.SetMinimumLevel(LogLevel.Information);
-#endif
-                var serilogLogger = new LoggerConfiguration()
-                    .MinimumLevel.Debug()
-                    .WriteTo.Console(LogEventLevel.Debug)
-                    .WriteTo.Debug(LogEventLevel.Debug)
-                    .WriteTo.File("log.txt", restrictedToMinimumLevel: LogEventLevel.Debug, rollingInterval: RollingInterval.Day, flushToDiskInterval: TimeSpan.FromMilliseconds(100))
-                    .CreateLogger();
-
-                loggerBuilder.AddSerilog(serilogLogger, true);
-            });
 
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             serviceCollection.AddScoped(typeof(IKeyedRepository<>), typeof(Repository<>));

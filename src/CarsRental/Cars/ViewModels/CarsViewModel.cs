@@ -6,7 +6,6 @@ using CarsRental.Core.ViewModels;
 using CarsRental.Crosscutting;
 using CarsRental.Domain.Cars.Entities;
 using CarsRental.Domain.Seedwork.Query;
-using Microsoft.Extensions.Logging;
 using Prism.Regions;
 
 namespace CarsRental.Cars.ViewModels
@@ -17,13 +16,11 @@ namespace CarsRental.Cars.ViewModels
     public class CarsViewModel : ViewModel
     {
         private readonly IRegionManager _regionManager;
-        private readonly ILogger<CarsViewModel> _logger;
         private readonly IRepository<Car> _carRepository;
 
-        public CarsViewModel(IRegionManager regionManager, ILogger<CarsViewModel> logger, IRepository<Car> carRepository)
+        public CarsViewModel(IRegionManager regionManager, IRepository<Car> carRepository)
         {
             _regionManager = regionManager;
-            _logger = logger;
             _carRepository = carRepository;
             NavigateToDetailCommand = new AsyncCommand(NavigateToDetailsAsync);
         }
@@ -35,7 +32,6 @@ namespace CarsRental.Cars.ViewModels
         public async Task NavigateToDetailsAsync()
         {
             var car = await _carRepository.GetByAsync(1);
-            _logger.LogTrace("Navigating to car detail");
             _regionManager.RequestNavigate(RegionNames.MainContent, $"{nameof(CarDetailUserControl)}?id=2");
         }
     }

@@ -5,7 +5,6 @@ using CarsRental.Domain.Cars.Entities;
 using CarsRental.Domain.Seedwork.Query;
 using CarsRental.Infrastructure.Storage.Ef.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace CarsRental.Infrastructure.Storage.Ef
 {
@@ -14,12 +13,10 @@ namespace CarsRental.Infrastructure.Storage.Ef
     /// </summary>
     public class CarsRentalDbContext : DbContext, IUnitOfWork
     {
-        private readonly ILogger<CarsRentalDbContext> _logger;
         private readonly IDbContextConfiguration _contextConfiguration;
 
-        public CarsRentalDbContext(ILogger<CarsRentalDbContext> logger, IDbContextConfiguration contextConfiguration)
+        public CarsRentalDbContext(IDbContextConfiguration contextConfiguration)
         {
-            _logger = logger;
             _contextConfiguration = contextConfiguration;
             Database.EnsureCreated();
         }
@@ -56,7 +53,7 @@ namespace CarsRental.Infrastructure.Storage.Ef
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to create conceptual model");
+                // TODO: Logging
                 throw;
             }
         }

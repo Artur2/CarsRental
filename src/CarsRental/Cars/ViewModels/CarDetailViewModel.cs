@@ -2,7 +2,7 @@
 using CarsRental.Cars.Views;
 using CarsRental.Core.ViewModels;
 using CarsRental.Crosscutting;
-using Microsoft.Extensions.Logging;
+using CarsRental.Crosscutting.Logging;
 using Prism.Commands;
 using Prism.Regions;
 
@@ -14,13 +14,13 @@ namespace CarsRental.Cars.ViewModels
     public class CarDetailViewModel : ViewModel
     {
         private readonly IRegionManager _regionManager;
-        private readonly ILogger<CarDetailViewModel> _logger;
+        private readonly ILoggerWrapper<CarDetailViewModel> _loggerWrapper;
 
-        public CarDetailViewModel(IRegionManager regionManager, ILogger<CarDetailViewModel> logger)
+        public CarDetailViewModel(IRegionManager regionManager, ILoggerWrapper<CarDetailViewModel> loggerWrapper)
         {
             NavigateBackCommand = new DelegateCommand(() => NavigateToList());
             _regionManager = regionManager;
-            _logger = logger;
+            _loggerWrapper = loggerWrapper;
         }
 
         public string Title { get; set; } = "Test detail view model";
@@ -36,7 +36,7 @@ namespace CarsRental.Cars.ViewModels
                 // TODO: Retrive
             }
 
-            _logger.LogInformation(carDetailIdRaw);
+            _loggerWrapper.Information("Test message");
         }
 
         private void NavigateToList() => _regionManager.RequestNavigate(RegionNames.MainContent, nameof(CarsUserControl));

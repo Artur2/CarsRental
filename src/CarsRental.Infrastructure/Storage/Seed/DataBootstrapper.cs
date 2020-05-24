@@ -17,27 +17,23 @@ namespace CarsRental.Infrastructure.Storage.Seed
         private readonly IKeyedRepository<SportCar> _sportCarRepository;
         private readonly IKeyedRepository<Vans> _vansRepository;
         private readonly ISeedDataService _seedDataService;
-        private readonly ILogger<DataBootstrapper> _logger;
 
         public DataBootstrapper(IKeyedRepository<Car> carRepository,
             IKeyedRepository<Sedan> sedanRepository,
             IKeyedRepository<SportCar> sportCarRepository,
             IKeyedRepository<Vans> vansRepository,
-            ISeedDataService seedDataService,
-            ILogger<DataBootstrapper> logger)
+            ISeedDataService seedDataService)
         {
             _carRepository = carRepository;
             _sedanRepository = sedanRepository;
             _sportCarRepository = sportCarRepository;
             _vansRepository = vansRepository;
             _seedDataService = seedDataService;
-            _logger = logger;
         }
 
         /// <inheritdoc cref="IDataBootstrapper.BootstrapAsync(CancellationToken)">
         public async Task BootstrapAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Start bootsrapp");
             cancellationToken.ThrowIfCancellationRequested();
             var cars = _seedDataService.GetData<Car>();
 
@@ -65,7 +61,6 @@ namespace CarsRental.Infrastructure.Storage.Seed
             }
 
             await _vansRepository.UnitOfWork.CommitAsync(cancellationToken);
-            _logger.LogInformation("End bootsrapp");
         }
     }
 }

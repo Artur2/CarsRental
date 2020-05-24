@@ -1,8 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using CarsRental.Cars;
+using Microsoft.Extensions.DependencyInjection;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Unity;
+using Serilog;
+using Serilog.Events;
 
 namespace CarsRental
 {
@@ -11,12 +15,21 @@ namespace CarsRental
     /// </summary>
     public partial class App : PrismApplication
     {
-        protected override void OnInitialized() => base.OnInitialized();// TODO: Initialization
+        protected override void OnInitialized() => base.OnInitialized();
 
-        protected override Window CreateShell() =>
-            Container.Resolve<MainWindow>();
+        public App()
+        {
+        }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) => ConfigureServices();
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<MainWindow>();
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            ConfigureServices();
+        }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) => moduleCatalog.AddModule<CarsModule>();
 
@@ -27,6 +40,12 @@ namespace CarsRental
             {
                 serviceCollection.ConfigureServices();
             });
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+
+            base.OnExit(e);
         }
     }
 }
